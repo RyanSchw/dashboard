@@ -1,15 +1,14 @@
 // Takes in new web socket messages and routes it to the appropriate handler
-import Message from '../../types/Message';
+import ServerMessage from '../types/ServerMessage';
 
-import WeatherMessage from '../../types/WeatherMessage';
 import handleWeatherMessage from './handlers/handleWeatherMessage';
 
-export default function handleMessage(message: Message) {
-    switch (message.type) {
+export default function handleMessage(serverMessage: ServerMessage) {
+    switch (serverMessage.type) {
         case 'WeatherMessage':
-            handleWeatherMessage(message as WeatherMessage);
+            handleWeatherMessage(serverMessage);
             break;    
         default:
-            throw new Error(`Error handling message of type ${message.type}: no handler defined`);
+            throw new Error(`Error handling message of type ${serverMessage.type}: no handler defined`);
     }
 }
