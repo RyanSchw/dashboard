@@ -5,7 +5,9 @@ import WeatherMessage from '../../../types/WeatherMessage';
 export function weatherAutomation1(clientManager: ClientManager) {
     const weatherMessage: WeatherMessage = {
         type: 'WeatherMessage',
-        requestId: 'abcd'
+        requestId: 'abcd',
+
+        dataPoint1: 100,
     };
 
     clientManager.broadcastMessage(weatherMessage);
