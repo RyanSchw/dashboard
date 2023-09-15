@@ -6,10 +6,12 @@ import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
 import sessionParser from './sessions/sessionParser';
 import handleMessage from './router';
+import AutomationsManager from './automations/AutomationsManager';
 
 import { Request } from 'express';
 import Message from '../../types/Message';
 import ServerMessage from '../types/ServerMessage';
+import ClientManager from '../types/ClientManager';
 
 function onSocketError(err) {
     console.error(err);
@@ -17,6 +19,12 @@ function onSocketError(err) {
 
 const app = express();
 const map = new Map();
+
+// set up websocket client manager
+const clientManager = new ClientManager(map);
+
+// set up automations that run periodically
+const automationsManager = new AutomationsManager(clientManager);
 
 
 app.use(sessionParser);
@@ -75,7 +83,7 @@ wss.on('connection', function (ws, request) {
         try {
             console.log(`Received message ${message} from user ${userId}`);
             const messageWithType = JSON.parse(message.toString()) as Message;
-            const serverMessage = new ServerMessage(messageWithType, map);
+            const serverMessage = new ServerMessage(messageWithType, clientManager);
 
             handleMessage(serverMessage);
         } catch (error) {

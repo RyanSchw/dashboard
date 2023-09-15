@@ -1,14 +1,14 @@
-import { WebSocket } from 'ws';
 import Message from '../../types/Message';
 import ResponseMessage from './ResponseMessage';
+import ClientManager from './ClientManager';
 
 export default class ServerMessage {
     message: Message;
-    readonly clients: Map<any, any>;
+    readonly clientManager: ClientManager;
 
-    constructor(message: Message, clients: Map<any, any>) {
+    constructor(message: Message, clientManager: ClientManager) {
         this.message = message;
-        this.clients = clients;
+        this.clientManager = clientManager;
     }
 
     
@@ -23,10 +23,6 @@ export default class ServerMessage {
             message: message,
         };
 
-        this.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify(responseMessage));
-            }
-        });
+        this.clientManager.broadcastMessage(responseMessage);
     }
 }
