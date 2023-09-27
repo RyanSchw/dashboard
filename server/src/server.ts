@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { IS_DEV_MODE } from './configHelpers';
+import { IS_DEV_MODE } from './config';
 
 import express from 'express';
 import { WebSocketServer } from 'ws';
@@ -9,6 +9,7 @@ import handleMessage from './router';
 import AutomationsManager from './automations/AutomationsManager';
 
 import { Request } from 'express';
+import HueApp from './applets/HueApp';
 import Message from '../../types/Message';
 import ServerMessage from '../types/ServerMessage';
 import ClientManager from '../types/ClientManager';
@@ -20,13 +21,21 @@ function onSocketError(err) {
 const app = express();
 const map = new Map();
 
-// set up websocket client manager
-const clientManager = new ClientManager(map);
+/////
+// instantiate all the singleton classes (communications, automations, etc)
+/////
+// set up class to manage all incoming/outgoing websocket messages
+export const clientManager = new ClientManager(map);
 
 // set up automations that run periodically
 const automationsManager = new AutomationsManager(clientManager);
 
+export const hueApp = new HueApp();
 
+
+/////
+// set up base server
+/////
 app.use(sessionParser);
 
 app.post('/login', function (req, res) {
