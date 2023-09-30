@@ -3,26 +3,33 @@ import useWebSocket from 'react-use-websocket';
 import { WS_URL } from '../config';
 
 import WeatherMessage from '../../../types/WeatherMessage';
+import WeatherFourTimeMessage from '../../../types/WeatherFourTimeMessage';
 import { filterMessage } from '../utils/filterMessage';
+import { getTimeUTC } from '../utils/timeCalculator';
 
 function WeatherApp() {
     const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
         share: true,
-        filter: (message) => filterMessage(message, 'WeatherMessage'),
+        filter: (message) => filterMessage(message, ['WeatherFourTimeMessage', 'WeatherAirQualityMessage']),
     });
-    const [dataPoint1, setDataPoint1] = React.useState(0);
 
-    useEffect(() => {
-        if (lastJsonMessage) {
-            const data = lastJsonMessage as WeatherMessage;
-            setDataPoint1(data.dataPoint1);
-        }
-    }, [lastJsonMessage]);
+    function getFourTimeWeather() {
+        const message: WeatherMessage = {
+            type: 'WeatherMessage',
+            requestId: 'daxdfew',
+            command: 'sync',
+            fourTimeTimes: [getTimeUTC(7), getTimeUTC(11), getTimeUTC(16), getTimeUTC(18)],
+        };
+        sendJsonMessage(message);
+    }
 
     return (
-        <div>
-            from websocket - {dataPoint1}
-        </div>
+        <>
+            <button onClick={getFourTimeWeather}>click me :)</button>
+            <div>
+                from websocket - {JSON.stringify(lastJsonMessage)}
+            </div>
+        </>
     );
 }
 

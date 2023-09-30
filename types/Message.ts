@@ -4,4 +4,6 @@ export default interface Message {
 
     // add unique fingerprint to each communication for debugging and to track the status of requests
     readonly requestId: string;
+
+    command?: string;
 }
