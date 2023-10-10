@@ -3,8 +3,6 @@ import useWebSocket from 'react-use-websocket';
 import { WS_URL } from './config';
 
 import Scene1 from './Scenes/Scene1';
-import WeatherApp from './Widgets/WeatherApp';
-import HueApp from './Widgets/HueApp';
 
 // import './App.css';
 
@@ -18,7 +16,7 @@ function App() {
 
   return (
     <>
-      <HueApp />
+      <Scene1 />
     </>
   );
 }

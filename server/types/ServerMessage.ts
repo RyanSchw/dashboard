@@ -16,13 +16,18 @@ export default class ServerMessage {
         return this.message.type;
     }
 
-    respond(message: string) {
-        const responseMessage: ResponseMessage = {
-            type: 'ResponseMessage',
-            requestId: this.message.requestId,
-            message: message,
-        };
-
-        this.clientManager.broadcastMessage(responseMessage);
+    respond(message: Message | string) {
+        if (typeof message === 'string') {
+            const responseMessage: ResponseMessage = {
+                type: 'ResponseMessage',
+                requestId: this.message.requestId,
+                message: message,
+            };
+    
+            this.clientManager.broadcastMessage(responseMessage);
+        } else {
+            // might need to adjust requestId to reflect initial message requestId
+            this.clientManager.broadcastMessage(message);
+        }
     }
 }

@@ -10,6 +10,7 @@ import AutomationsManager from './automations/AutomationsManager';
 
 import { Request } from 'express';
 import HueApp from './applets/HueApp';
+import WeatherApp from './applets/WeatherApp';
 import Message from '../../types/Message';
 import ServerMessage from '../types/ServerMessage';
 import ClientManager from '../types/ClientManager';
@@ -31,6 +32,7 @@ export const clientManager = new ClientManager(map);
 const automationsManager = new AutomationsManager(clientManager);
 
 export const hueApp = new HueApp();
+export const weatherApp = new WeatherApp();
 
 
 /////

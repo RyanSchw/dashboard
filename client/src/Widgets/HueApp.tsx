@@ -8,7 +8,7 @@ import { filterMessage } from '../utils/filterMessage';
 function HueApp() {
     const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
         share: true,
-        filter: (message) => filterMessage(message, 'HueMessage'),
+        filter: (message) => filterMessage(message, ['HueMessage']),
     });
     const [dataPoint1, setDataPoint1] = React.useState(0);
 
