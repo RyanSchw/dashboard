@@ -69,15 +69,17 @@ export default class WeatherApp extends BaseApp {
                 };
             }
         });
+
+        if (formattedHourlyData.length !== 4) {
+            throw new Error(`Invalid number of hours, expected 4 but got ${formattedHourlyData.length}`);
+        }
         
         // create the message
         const message: WeatherFourTimeMessage = {
             type: 'WeatherFourTimeMessage',
             requestId: 'blankfornow',
-            time1: formattedHourlyData[0],
-            time2: formattedHourlyData[1],
-            time3: formattedHourlyData[2],
-            time4: formattedHourlyData[3],
+            // @ts-ignore we check the data length above but TS doesn't see that
+            weatherAtTimes: formattedHourlyData,
         }
 
         return message;

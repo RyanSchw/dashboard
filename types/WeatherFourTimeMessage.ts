@@ -4,13 +4,10 @@ import WeatherDataType from './WeatherDataType';
 export default interface WeatherFourTimeMessage extends Message {
     type: 'WeatherFourTimeMessage';
 
-    time1: HourlyData;
-    time2: HourlyData;
-    time3: HourlyData;
-    time4: HourlyData;
+    weatherAtTimes: [HourlyWeatherData, HourlyWeatherData, HourlyWeatherData, HourlyWeatherData];
 }
 
-interface HourlyData {
+export interface HourlyWeatherData {
     [WeatherDataType.TEMPERATURE]: number;
     [WeatherDataType.ICON]: string;
 }
