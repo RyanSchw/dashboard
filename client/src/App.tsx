@@ -6,6 +6,7 @@ import { WS_URL } from './config';
 
 import Scene1 from './Scenes/Scene1';
 import DateTimeHeader from './components/DateTimeHeader';
+import { LIGHT_THEME } from './theme';
 
 // import './App.css';
 
@@ -18,14 +19,7 @@ function App() {
     });
 
     return (
-        <Grommet full>
-            <Box direction='row'>
-                <DateTimeHeader />
-                <Toolbar justify='end'>
-                    <Button icon={<SettingsOption />} />
-                </Toolbar>
-            </Box>
-
+        <Grommet full theme={LIGHT_THEME}>
             <Scene1 />
         </Grommet>
     );

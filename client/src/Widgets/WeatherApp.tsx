@@ -8,6 +8,7 @@ import WeatherDataType from '../../../types/WeatherDataType';
 import Message from '../../../types/Message';
 import { filterMessage } from '../utils/filterMessage';
 import { getTimeUTC } from '../utils/timeCalculator';
+import { Box } from 'grommet';
 
 function WeatherApp() {
     const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
@@ -40,15 +41,16 @@ function WeatherApp() {
 
     return (
         <>
-            <button onClick={getFourTimeWeather}>click me :)</button>
-            {hourlyWeatherData.map((data, i) => (
-                <div key={i}>
-                    <p>
-                        {data[WeatherDataType.TEMPERATURE]}
-                        <img src={`https://openweathermap.org/img/wn/${data[WeatherDataType.ICON]}@2x.png`} />
-                    </p>
-                </div>
-            ))}
+            <Box gridArea='weather'>
+                {hourlyWeatherData.map((data, i) => (
+                    <div key={i}>
+                        <p>
+                            {data[WeatherDataType.TEMPERATURE]}
+                            <img src={`https://openweathermap.org/img/wn/${data[WeatherDataType.ICON]}@2x.png`} />
+                        </p>
+                    </div>
+                ))}
+            </Box>
         </>
     );
 }
