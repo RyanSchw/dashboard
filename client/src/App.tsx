@@ -5,6 +5,7 @@ import { SettingsOption } from 'grommet-icons';
 import { WS_URL } from './config';
 
 import Scene1 from './Scenes/Scene1';
+import Scene2 from './Scenes/Scene2';
 import DateTimeHeader from './components/DateTimeHeader';
 import { LIGHT_THEME } from './theme';
 
@@ -20,7 +21,7 @@ function App() {
 
     return (
         <Grommet full theme={LIGHT_THEME}>
-            <Scene1 />
+            <Scene2 />
         </Grommet>
     );
 }

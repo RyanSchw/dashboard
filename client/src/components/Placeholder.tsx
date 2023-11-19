@@ -10,6 +10,10 @@ function Placeholder() {
         </Box>
         <Box gridArea='placeholder2' skeleton round>
         </Box>
+        <Box gridArea='placeholder3' skeleton round>
+        </Box>
+        <Box gridArea='placeholder4' skeleton round>
+        </Box>
     </>
   );
 };
